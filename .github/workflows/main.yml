@@ -19,13 +19,20 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install dependencies
+      - name: Install dependencies in root
         run: npm install
+
+      - name: Install dependencies in client
+        run: npm install
+        working-directory: ./client
+
+      - name: Start application for tests
+        run: npm run dev -- --port 5173
         working-directory: ./client
 
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
-          working-directory: ./client
-          start: npm run dev
+          working-directory: .
+          start: npm run dev -- --port 5173
           wait-on: 'http://localhost:5173'

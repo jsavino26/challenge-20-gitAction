@@ -20,12 +20,13 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: npm install
-        working-directory: ./client
+        run: npm ci
+
+      - name: Create client and server build
+        run: npm run build
 
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
-          working-directory: ./client
-          start: npm run dev
-          wait-on: 'http://localhost:5173'
+          start: npm run start
+          component: true # Set to true if you want to run component tests

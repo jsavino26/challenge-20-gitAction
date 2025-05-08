@@ -20,12 +20,12 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+        name: Create client and server build
+        run: npm run build
 
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
-          build: npm run build
-          start: npm run start
-          test: npm run test-component
-          
+          test: npm run start && npm run test-component
